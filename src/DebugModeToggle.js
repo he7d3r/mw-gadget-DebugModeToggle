@@ -8,7 +8,7 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	var	debugMode = $.cookie( 'resourceLoaderDebug' ) !== null,
+	var debugMode = mw.config.get( 'debug' ),
 		label = {
 			'true': 'Disable debug mode',
 			'false': 'Enable debug mode'
