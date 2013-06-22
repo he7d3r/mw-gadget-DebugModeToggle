@@ -24,7 +24,7 @@
 		'p-tb',
 		'#',
 		label[ debugMode ],
-		'#ca-toggle-debug-mode',
+		'ca-toggle-debug-mode',
 		'Turn debug mode on or off and reload the page'
 	) ).click( function (e) {
 		e.preventDefault();
