@@ -28,8 +28,8 @@
 		e.preventDefault();
 		$.cookie(
 			'resourceLoaderDebug',
-			debugMode? null: true,
-			 cookieOptions
+			debugMode ? null : true,
+			cookieOptions
 		);
 		window.location.reload( /* ignore cache? */ true );
 	} );
