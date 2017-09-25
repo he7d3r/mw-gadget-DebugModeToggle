@@ -6,32 +6,46 @@
 ( function ( mw, $ ) {
 	'use strict';
 
-	var debugMode = mw.config.get( 'debug' ),
-		label = {
-			'true': 'Disable debug mode',
-			'false': 'Enable debug mode'
-		},
-		cookieOptions = {
-			expires: 1,
-			path: '/'
-		};
-	if ( $('#ca-toggle-debug-mode').length ) {
-		return;
-	}
-	$( mw.util.addPortletLink(
-		'p-tb',
-		'#',
-		label[ debugMode ],
-		'ca-toggle-debug-mode',
-		'Turn debug mode on or off and reload the page'
-	) ).click( function (e) {
+	var debugMode = mw.config.get( 'debug' );
+
+	function onClick( e ) {
+		var sep = location.search.indexOf( '&' ) === -1 ? '?' : '&';
 		e.preventDefault();
 		$.cookie(
 			'resourceLoaderDebug',
 			debugMode ? null : true,
-			cookieOptions
+			{
+				expires: 1,
+				path: '/'
+			}
 		);
-		window.location.reload( /* ignore cache? */ true );
-	} );
+		location.href = location.href
+			.replace( location.hash, '' )
+			.replace( sep + 'debug=' + debugMode, '' ) +
+				sep + 'debug=' + !debugMode;
+	}
+	function load() {
+		var id = 'ca-toggle-debug-mode',
+			label = {
+				'true': 'Disable debug mode',
+				'false': 'Enable debug mode'
+			};
+		if ( $( '#' + id ).length ) {
+			return;
+		}
+		$( mw.util.addPortletLink(
+			'p-tb',
+			'#',
+			label[ debugMode ],
+			id,
+			'Turn debug mode on or off and reload the page'
+		) )
+		.click( onClick )
+		.find('a').css( 'color', '#808' );
+	}
+	$.when(
+		mw.loader.using( 'mediawiki.util' ),
+		$.ready
+	).then( load );
 
 }( mediaWiki, jQuery ) );
