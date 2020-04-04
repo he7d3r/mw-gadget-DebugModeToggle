@@ -9,7 +9,7 @@
 	var debugMode = mw.config.get( 'debug' );
 
 	function onClick( e ) {
-		var sep = location.search.indexOf( '&' ) === -1 ? '?' : '&';
+		var sep = location.search.indexOf( '?' ) === -1 ? '?' : '&';
 		e.preventDefault();
 		$.cookie(
 			'resourceLoaderDebug',
