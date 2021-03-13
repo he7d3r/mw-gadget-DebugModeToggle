@@ -13,7 +13,7 @@
 		e.preventDefault();
 		$.cookie(
 			'resourceLoaderDebug',
-			debugMode ? null : true,
+			debugMode === 0 ? null : true,
 			{
 				expires: 1,
 				path: '/'
@@ -27,8 +27,8 @@
 	function load() {
 		var id = 'ca-toggle-debug-mode',
 			label = {
-				'true': 'Disable debug mode',
-				'false': 'Enable debug mode'
+				1: 'Disable debug mode',
+				0: 'Enable debug mode'
 			};
 		if ( $( '#' + id ).length ) {
 			return;
